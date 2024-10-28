@@ -43,7 +43,7 @@ export const setupServer = () => {
     
     app.use((req, res) => {
         res.status(404).json({
-            message: `http://localhost:${env('PORT')}${req.url} not found`,
+            message: `${req.url} not found`,
         })
     });
     
