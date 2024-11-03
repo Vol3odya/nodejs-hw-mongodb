@@ -1,8 +1,10 @@
 import express from "express";
 import cors from "cors";
-import pino from "pino-http";
 import { env } from "./utils/env.js";
-import * as contactServises from "./services/contacts.js";
+import contactsRouter from "./routers/contacts.js";
+import { notFoundHendler } from "./middlewares/notFoundHendler.js";
+import { errorHendler } from "./middlewares/errorHendler.js";
+import { logger } from "./middlewares/legger.js";
 
 //Vol_odya_Node
 //qwerty12345678
@@ -11,47 +13,16 @@ import * as contactServises from "./services/contacts.js";
 export const setupServer = () => {
     const app = express();
     app.use(cors());
-    const logger = pino({
-        transport: {
-            target: "pino-pretty",
-        }
-    })
-    //app.use(logger);
-    app.get("/contacts", async (req, res) => {
-        const data = await contactServises.getContacts();
-        res.json({
-            status: 200,
-            message: "Successfully found contacts!",
-            data,
-        });
-    });
 
-    app.get("/contacts/:contactId", async (req, res) => {
-        const { contactId } = req.params;
-        const data = await contactServises.getContact(contactId);
-        if (!data) {
-            return res.status(404).json({
-                message: 'Contact not found',
-            });
-        }
-        res.json({
-            status: 200,
-            message: `Successfully found contact with id ${contactId}!`,
-            data,
-        });
-    });
+    app.use(express.json());
+
+    //app.use(logger);
     
-    app.use((req, res) => {
-        res.status(404).json({
-            message: `${res.url} not found`,
-        })
-    });
+    app.use("/contacts", contactsRouter);
+
+    app.use(notFoundHendler);
     
-    app.use((error, req, res, next) => {
-        res.status(500).json({
-            message: error.message,
-        })
-    });
+    app.use(errorHendler);
 
     const port = Number(env("PORT", 3000));
 
