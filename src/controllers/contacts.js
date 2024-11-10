@@ -3,9 +3,19 @@ import createHttpError from "http-errors";
 
 import * as contactServises from "../services/contacts.js";
 
+import { contactAddSchema } from "../validation/contacts.js";
+import { parsePaginationParams } from "../utils/parsePaginationParams.js";
+import { parse } from "dotenv";
+import { parseSortParams } from "../utils/parseSortParams.js";
+import { sortByList } from "../db/models/Contact.js";
+import { parseContactFilter } from "../utils/parseContactFilter.js";
+
 
 export const getContactsControllers = async (req, res) => {
-    const data = await contactServises.getContacts();
+    const { page, perPage } = parsePaginationParams(req.query);
+    const { sortBy, sortOrder } = parseSortParams(req.query, sortByList);
+    const filter = parseContactFilter(req.query);
+    const data = await contactServises.getContacts({ page, perPage, sortBy, sortOrder, filter});
     res.json({
         status: 200,
         message: "Successfully found contacts!",
