@@ -19,6 +19,6 @@ export const contactUpdateSchema = Joi.object({
     name: Joi.string().min(3).max(20),
     phoneNumber: Joi.string().min(3).max(20),
     email: Joi.string().min(3).max(20),
-    //isFavourite: Joi.boolean().valid(true, false),
-    //contactType:Joi.string().valid(...typeList),
+    isFavourite: Joi.boolean().valid(true, false),
+    contactType:Joi.string().valid(...typeList),
 });
