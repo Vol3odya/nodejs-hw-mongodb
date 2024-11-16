@@ -26,6 +26,11 @@ const contactSchema = new Schema({
         enum:typeList,
         default: 'personal',
     },
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+        required: true,
+    }
 }, {
     versionKey: false,
     timestamps: true,
@@ -34,6 +39,8 @@ const contactSchema = new Schema({
 contactSchema.post("save", handleSaveError);
 
 contactSchema.pre("findOneAndUpdate", setUpdateSettings);
+
+contactSchema.post("findOneAndUpdate", handleSaveError);
 
 export const sortByList = ["name", "phoneNumber", "email"];
 

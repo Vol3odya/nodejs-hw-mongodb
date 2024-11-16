@@ -5,6 +5,8 @@ import contactsRouter from "./routers/contacts.js";
 import { notFoundHendler } from "./middlewares/notFoundHendler.js";
 import { errorHendler } from "./middlewares/errorHendler.js";
 import { logger } from "./middlewares/legger.js";
+import authRouter from "./routers/auth.js";
+import cookieParser from "cookie-parser";
 
 //Vol_odya_Node
 //qwerty12345678
@@ -16,7 +18,10 @@ export const setupServer = () => {
 
     app.use(express.json());
 
+    app.use(cookieParser());
     //app.use(logger);
+
+    app.use("/auth", authRouter);
     
     app.use("/contacts", contactsRouter);
 
