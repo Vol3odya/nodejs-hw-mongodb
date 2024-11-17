@@ -27,7 +27,13 @@ export const getContacts = async ({ page = 1, perPage = 10, sortBy = "_id", sort
     };
 };
 
-export const getContact = id => contactColection.findById(id);
+export const getContact = (id, userId) => {
+    const query = contactColection.findById(id);
+    if (userId) {
+        query.where("userId").equals(userId);
+    }
+    return query;
+};
 
 export const addContact = payload => contactColection.create(payload);
 

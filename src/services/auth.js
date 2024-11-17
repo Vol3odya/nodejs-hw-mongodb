@@ -51,7 +51,6 @@ export const login = async ({ email, password }) => {
 
 export const refreshUserSession = async ({sessionId, refreshToken}) => {
     const session = await SessionCollection.findOne({ _id: sessionId, refreshToken });
-    console.log(session);
     if (!session) {
         throw createHttpError(401, "Session not found.");
     }
