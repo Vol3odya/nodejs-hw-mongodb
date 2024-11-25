@@ -9,6 +9,9 @@ import { parse } from "dotenv";
 import { parseSortParams } from "../utils/parseSortParams.js";
 import { sortByList } from "../db/models/Contact.js";
 import { parseContactFilter } from "../utils/parseContactFilter.js";
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import { env } from '../utils/env.js';
 
 
 export const getContactsControllers = async (req, res) => {
@@ -74,7 +77,22 @@ export const upsertContactControllers = async (req, res) => {
 export const patchContactControllers = async (req, res) => {
     const { contactId: _id } = req.params;
     const { _id: userId } = req.user;
-    const result = await contactServises.updateContact({ _id, userId, payload: req.body });
+    const photo = req.file;
+    let photoUrl;
+
+    if (photo) {
+    if (env('ENABLE_CLOUDINARY') === 'true') {
+      photoUrl = await saveFileToCloudinary(photo);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
+  }
+    const result = await contactServises.updateContact({
+        _id, userId, payload: {
+            ...req.body,
+            photo: photoUrl
+        }
+    });
     if (!result) {
         throw createHttpError(404, "Contact not found");
     }
