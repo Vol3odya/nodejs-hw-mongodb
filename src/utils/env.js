@@ -5,7 +5,6 @@ dotevn.config();
 
 export const env = (name, defaultValue) => {
     const value = process.env[name];
-    console.log(value);
     if (value) {
         return value;
     }
@@ -14,5 +13,5 @@ export const env = (name, defaultValue) => {
         return defaultValue;
     }
 
-    throw new Error(`Missing value`);
+    throw new Error(`Missing ${value}`);
 }
