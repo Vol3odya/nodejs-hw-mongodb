@@ -81,12 +81,12 @@ export const patchContactControllers = async (req, res) => {
     let photoUrl;
 
     if (photo) {
-    if (env('ENABLE_CLOUDINARY') === 'true') {
-      photoUrl = await saveFileToCloudinary(photo);
-    } else {
-      photoUrl = await saveFileToUploadDir(photo);
+        if (env('ENABLE_CLOUDINARY') === "true") {
+            photoUrl = await saveFileToCloudinary(photo);
+        } else {
+        photoUrl = await saveFileToUploadDir(photo);
+        }
     }
-  }
     const result = await contactServises.updateContact({
         _id, userId, payload: {
             ...req.body,
