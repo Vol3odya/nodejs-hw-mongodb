@@ -15,7 +15,7 @@ authRouter.post("/login", validateBody(authLoginSchema), ctrlWrapper(authControl
 authRouter.post("/refresh", ctrlWrapper(authControllers.refreshSessionController));
 authRouter.post("/logout", ctrlWrapper(authControllers.logoutController));
 authRouter.post("/send-reset-email", validateBody(requestResetEmailSchema), ctrlWrapper(authControllers.requestResetEmailController));
-authRouter.post('/reset-password', validateBody(resetPasswordSchema), ctrlWrapper(authControllers.resetPasswordController),
+authRouter.post('/reset-pwd', validateBody(resetPasswordSchema), ctrlWrapper(authControllers.resetPasswordController),
 );
 
 
