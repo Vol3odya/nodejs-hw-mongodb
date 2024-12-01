@@ -88,7 +88,7 @@
       },
       "patch": {
         "tags": [
-          "Contact"
+          "Contacts"
         ],
         "summary": "Update contact",
         "operationId": "updateContact",
@@ -145,10 +145,10 @@
                       false
                     ]
                   },
-                  "userId": {
-                    "description": "Contact's parent id",
+                  "email": {
+                    "description": "Contact's email",
                     "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
+                    "example": "qaz@qaz.qaz"
                   },
                   "photo": {
                     "description": "Contact's photo",
@@ -323,7 +323,7 @@
           },
           {
             "in": "query",
-            "name": "parsedIsFavorite",
+            "name": "sortByIsFavorite",
             "schema": {
               "type": "boolean",
               "example": true
@@ -331,7 +331,7 @@
           },
           {
             "in": "query",
-            "name": "parsedTypeContact",
+            "name": "sortByTypeContact",
             "schema": {
               "type": "string",
               "enum": [
@@ -420,7 +420,7 @@
       },
       "post": {
         "tags": [
-          "Contact"
+          "Contacts"
         ],
         "summary": "Create contact",
         "operationId": "createContact",
@@ -439,8 +439,6 @@
                   "_id",
                   "name",
                   "phoneNumber",
-                  "isFavourite",
-                  "contactType",
                   "userId"
                 ],
                 "properties": {
@@ -471,10 +469,10 @@
                       false
                     ]
                   },
-                  "userId": {
-                    "description": "Contact's parent id",
+                  "email": {
+                    "description": "Contact's email",
                     "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
+                    "example": "qaz@qaz.qaz"
                   },
                   "photo": {
                     "description": "Contact's photo",
@@ -537,8 +535,6 @@
           "_id",
           "name",
           "phoneNumber",
-          "isFavourite",
-          "contactType",
           "userId"
         ],
         "properties": {
@@ -573,6 +569,11 @@
               "home",
               "personal"
             ]
+          },
+          "email": {
+            "description": "Contact's email",
+            "type": "string",
+            "example": "qaz@qaz.qaz"
           },
           "userId": {
             "description": "Contact's parent id",

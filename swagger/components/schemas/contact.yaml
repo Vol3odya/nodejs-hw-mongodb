@@ -3,8 +3,6 @@ required:
   - _id
   - name
   - phoneNumber
-  - isFavourite
-  - contactType
   - userId
 properties:
   _id:
@@ -27,6 +25,10 @@ properties:
     description: "Contact's type"
     type: string
     enum: ['work', 'home', 'personal']
+  email:
+    description: "Contact's email"
+    type: string
+    example: qaz@qaz.qaz
   userId:
     description: "Contact's parent id"
     type: string

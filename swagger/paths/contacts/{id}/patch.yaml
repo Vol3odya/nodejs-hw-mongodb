@@ -1,5 +1,5 @@
 tags:
-  - Contact
+  - Contacts
 summary: Update contact
 operationId: updateContact
 description: 'Update a contact with payload'
@@ -36,10 +36,10 @@ requestBody:
             description: "Contact's isFavourite"
             type: boolean
             enum: [true, false]
-          userId:
-            description: "Contact's parent id"
+          email:
+            description: "Contact's email"
             type: string
-            example: 65e4decdd286b30065d54af9
+            example: qaz@qaz.qaz
           photo:
             description: "Contact's photo"
             type: string
