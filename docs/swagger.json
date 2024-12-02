@@ -114,9 +114,6 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "_id"
-                ],
                 "properties": {
                   "name": {
                     "description": "Contact's name",
@@ -218,6 +215,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -323,7 +323,7 @@
           },
           {
             "in": "query",
-            "name": "sortByIsFavorite",
+            "name": "filterByIsFavorite",
             "schema": {
               "type": "boolean",
               "example": true
@@ -331,7 +331,7 @@
           },
           {
             "in": "query",
-            "name": "sortByTypeContact",
+            "name": "filterByTypeContact",
             "schema": {
               "type": "string",
               "enum": [
@@ -436,10 +436,9 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "_id",
                   "name",
                   "phoneNumber",
-                  "userId"
+                  "contactType"
                 ],
                 "properties": {
                   "name": {
@@ -514,6 +513,9 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
           "401": {
             "$ref": "#/components/responses/401"
           }
@@ -535,6 +537,7 @@
           "_id",
           "name",
           "phoneNumber",
+          "contactType",
           "userId"
         ],
         "properties": {
@@ -589,6 +592,43 @@
       }
     },
     "responses": {
+      "400": {
+        "description": "Unauthorized error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "401": {
         "description": "Unauthorized error",
         "content": {
